@@ -1,0 +1,10 @@
+{
+  "握拳": "mouse_move",
+  "食指": "left_click",
+  "两指": "right_click",
+  "三指": "volume_up",
+  "四指": "volume_down",
+  "拇指": "screenshot",
+  "手掌": "scroll",
+  "自定义手势": "mouse_move"
+}
