@@ -165,6 +165,21 @@ def map_hand_to_screen(landmarks, image_width, image_height):
     
     return screen_x, screen_y
 
+def draw_quadrants(image):
+    image_height, image_width, _ = image.shape
+    center_x = image_width // 2
+    center_y = image_height // 2
+    
+    cv2.line(image, (center_x, 0), (center_x, image_height), (255, 255, 0), 2)
+    cv2.line(image, (0, center_y), (image_width, center_y), (255, 255, 0), 2)
+    
+    image = draw_chinese_text(image, '第一象限', (center_x + 10, 10), (255, 255, 0), 18)
+    image = draw_chinese_text(image, '第二象限', (10, 10), (255, 255, 0), 18)
+    image = draw_chinese_text(image, '第三象限', (10, center_y + 10), (255, 255, 0), 18)
+    image = draw_chinese_text(image, '第四象限', (center_x + 10, center_y + 10), (255, 255, 0), 18)
+    
+    return image
+
 def draw_landmarks(image, landmarks, connections):
     image_height, image_width, _ = image.shape
     
@@ -293,6 +308,7 @@ def main():
 
                     image = draw_chinese_text(image, f'手势: {gesture}', (10, 30), (0, 255, 0))
 
+            image = draw_quadrants(image)
             image = draw_chinese_text(image, f'音量: {current_volume}%', (10, 60), (255, 0, 0))
             image = draw_chinese_text(image, 'Q-退出', (10, CAMERA_HEIGHT - 40), (0, 0, 255), 20)
             image = draw_chinese_text(image, 'C-切换点击', (150, CAMERA_HEIGHT - 40), (0, 0, 255), 20)
