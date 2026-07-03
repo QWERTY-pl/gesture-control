@@ -134,8 +134,8 @@ def detect_gesture(landmarks):
         return '两指'
     elif fingers_extended == 3:
         return '三指'
-    elif fingers_extended == 4 and not thumb_extended:
-        return '四指'
+    elif pinky_extended and fingers_extended == 1:
+        return '小指'
     elif thumb_extended and not index_extended and fingers_extended == 0 and len(landmarks) >= 6:
         return '拇指'
     else:
@@ -267,7 +267,7 @@ def main():
                             pyautogui.press('volumeup')
                             last_volume_time = current_time
 
-                    elif gesture == '四指':
+                    elif gesture == '小指':
                         current_time = time.time()
                         if current_time - last_volume_time > 0.3:
                             current_volume = max(0, current_volume - VOLUME_STEP)
