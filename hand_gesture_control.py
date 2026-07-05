@@ -154,16 +154,16 @@ class HandGestureController:
         x = palm_center['x']
         y = palm_center['y']
         
-        margin = 0.15
+        margin = 0.10
         y_min = margin
         y_max = 1.0 - margin
         
         if y < y_min:
-            normalized_y = y / y_min * 0.3
+            normalized_y = y / y_min * 0.2
         elif y > y_max:
-            normalized_y = 0.7 + (y - y_max) / margin * 0.3
+            normalized_y = 0.8 + (y - y_max) / margin * 0.2
         else:
-            normalized_y = 0.3 + (y - y_min) / (y_max - y_min) * 0.4
+            normalized_y = 0.2 + (y - y_min) / (y_max - y_min) * 0.6
         
         screen_x = x * SCREEN_WIDTH
         screen_y = normalized_y * SCREEN_HEIGHT
