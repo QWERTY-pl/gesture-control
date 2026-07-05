@@ -287,9 +287,50 @@ class HandGestureController:
             self.frame_count = 0
             self.last_fps_time = current_time
     
+    def _show_startup_screen(self):
+        startup_image = np.zeros((480, 640, 3), dtype=np.uint8)
+        
+        startup_image = self._draw_chinese_text(startup_image, '手势识别电脑控制程序', (120, 80), (0, 255, 255), 32)
+        startup_image = self._draw_chinese_text(startup_image, '=====================', (180, 120), (255, 255, 255), 20)
+        
+        gestures = [
+            ('握拳', '鼠标移动'),
+            ('食指', '左键点击'),
+            ('两指', '右键点击'),
+            ('三指', '增加音量'),
+            ('小指', '减少音量'),
+            ('拇指', '截图保存'),
+            ('手掌', '上下滚动'),
+        ]
+        
+        y_offset = 170
+        for i, (gesture, action) in enumerate(gestures):
+            color = (0, 255, 0) if i % 2 == 0 else (255, 255, 0)
+            text = f'{gesture:<6} → {action}'
+            startup_image = self._draw_chinese_text(startup_image, text, (100, y_offset + i * 30), color, 20)
+        
+        startup_image = self._draw_chinese_text(startup_image, '=====================', (180, 390), (255, 255, 255), 20)
+        startup_image = self._draw_chinese_text(startup_image, '按 空格键 或 回车键 启动程序', (100, 430), (0, 128, 255), 24)
+        startup_image = self._draw_chinese_text(startup_image, '按 Q 键退出', (250, 460), (255, 0, 0), 20)
+        
+        cv2.imshow('手势识别电脑控制程序', startup_image)
+        
+        while True:
+            key = cv2.waitKey(0) & 0xFF
+            if key == ord(' ') or key == ord('\r') or key == ord('\n'):
+                break
+            elif key == ord('q'):
+                cv2.destroyAllWindows()
+                return False
+        
+        return True
+    
     def run(self):
         try:
             self._download_model()
+            
+            if not self._show_startup_screen():
+                return
             
             BaseOptions = mp.tasks.BaseOptions
             HandLandmarker = mp.tasks.vision.HandLandmarker
