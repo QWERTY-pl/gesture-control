@@ -1,0 +1,6 @@
+opencv-python==4.13.0.92
+mediapipe==0.10.35
+pyautogui==0.9.54
+pillow==12.2.0
+scikit-learn==1.4.2
+joblib==1.4.0
