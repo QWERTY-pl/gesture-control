@@ -13,8 +13,10 @@ Thumbs.db
 .swp
 .swo
 *~
-hand_landmarker.task
-gesture_model.pkl
-gesture_labels.json
+
 screenshots/
 gesture_data/
+*.doc
+*.docx
+~$*
+gesture-control-requirements/
